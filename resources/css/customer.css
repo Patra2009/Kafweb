@@ -1,0 +1,342 @@
+@import 'tailwindcss';
+
+/*
+ * ============================================================
+ *  KafWeb Pelanggan, Warm & Appetizing Modern (Estetik Kafe)
+ *
+ *  Dialek desain (dikunci):
+ *  - Palet hangat earthy: krem, cokelat kayu, terracotta (clay), sage.
+ *  - Radius konsisten: kartu 24px (rounded-3xl), tombol/input 16px
+ *    (rounded-2xl), badge lencana pill.
+ *  - Tipografi: display Bricolage Grotesque (hangat, berkarakter),
+ *    teks Plus Jakarta Sans.
+ *  - Kontrasnya: teks utama bark-800 di atas krem 6.6:1, primary
+ *    putih di atas clay-600 5.7:1, keduanya lolos WCAG AA.
+ * ============================================================
+ */
+
+@theme {
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, 'Segoe UI', sans-serif, 'Noto Sans', sans-serif;
+    --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Krem (lahan hangat) */
+    --color-cream-50: #fbf7f1;
+    --color-cream-100: #f6efe4;
+    --color-cream-200: #ede2d2;
+    --color-cream-300: #e0d1bc;
+
+    /* Kertas kartu */
+    --color-paper: #fffcf6;
+
+    /* Cokelat kayu (teks) */
+    --color-ink-950: #291d15;
+    --color-bark-800: #47352a;
+    --color-bark-700: #6b5344;
+    --color-bark-600: #7d6450;
+
+    /* Terracotta (aksen utama) */
+    --color-clay-700: #8f3e20;
+    --color-clay-600: #a84a28;
+    --color-clay-500: #c65a33;
+    --color-clay-100: #f7e1d4;
+    --color-clay-50: #faf0e7;
+
+    /* Sage (status selesai) */
+    --color-sage-700: #46603a;
+    --color-sage-600: #5f7a52;
+    --color-sage-200: #dfe8d2;
+    --color-sage-50: #f0f4e9;
+
+    /* Buah lebat (dibatalkan) */
+    --color-berry-600: #8c3b39;
+    --color-berry-200: #efd5d2;
+    --color-berry-50: #f8ebe9;
+
+    --shadow-card: 0 1px 2px rgb(71 53 42 / 0.05), 0 10px 30px -18px rgb(71 53 42 / 0.25);
+    --shadow-raise: 0 18px 50px -20px rgb(41 29 21 / 0.38);
+
+    --ease-warm: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            scroll-behavior: smooth;
+        }
+    }
+
+    ::selection {
+        background: var(--color-clay-100);
+        color: var(--color-ink-950);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-clay-600);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+
+    body {
+        overscroll-behavior-y: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        ::before,
+        ::after {
+            transition-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+        }
+    }
+}
+
+@layer components {
+    /* --- Tombol (radius 16px, satu sistem bentuk) --- */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 2.75rem;
+        padding-inline: 1rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        font-weight: 700;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+            transform 0.15s var(--ease-warm),
+            background-color 0.15s var(--ease-warm),
+            color 0.15s var(--ease-warm),
+            box-shadow 0.15s var(--ease-warm);
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+    .btn-primary {
+        background: var(--color-clay-600);
+        color: #fff;
+        box-shadow: 0 8px 20px -12px rgb(168 74 40 / 0.55);
+    }
+
+    .btn-primary:hover {
+        background: var(--color-clay-700);
+    }
+
+    .btn-primary:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    .btn-ghost {
+        background: var(--color-paper);
+        color: var(--color-bark-800);
+        border: 1px solid var(--color-cream-200);
+    }
+
+    .btn-ghost:hover {
+        background: var(--color-cream-100);
+    }
+
+    .btn-sm {
+        height: 2.375rem;
+        padding-inline: 0.875rem;
+        border-radius: 0.875rem;
+    }
+
+    /* --- Keripik kategori (pill) --- */
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        height: 2.25rem;
+        padding-inline: 1rem;
+        border-radius: 9999px;
+        border: 1px solid var(--color-cream-200);
+        background: var(--color-paper);
+        font-size: 0.815rem;
+        font-weight: 600;
+        color: var(--color-bark-700);
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+            background-color 0.15s var(--ease-warm),
+            color 0.15s var(--ease-warm),
+            border-color 0.15s var(--ease-warm);
+    }
+
+    .chip:hover {
+        border-color: var(--color-cream-300);
+        color: var(--color-bark-800);
+    }
+
+    .chip[aria-pressed="true"] {
+        background: var(--color-clay-600);
+        border-color: var(--color-clay-600);
+        color: #fff;
+    }
+
+    /* --- Input (radius 16px, label di atas) --- */
+    .label {
+        display: block;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--color-bark-800);
+        margin-bottom: 0.375rem;
+    }
+
+    .input {
+        width: 100%;
+        height: 3rem;
+        border-radius: 1rem;
+        border: 1px solid var(--color-cream-200);
+        background: var(--color-paper);
+        padding-inline: 1rem;
+        font-size: 0.9375rem;
+        color: var(--color-ink-950);
+        transition:
+            border-color 0.15s var(--ease-warm),
+            box-shadow 0.15s var(--ease-warm);
+    }
+
+    .input::placeholder {
+        color: var(--color-bark-600);
+        opacity: 0.85;
+    }
+
+    .input:focus {
+        outline: none;
+        border-color: var(--color-clay-500);
+        box-shadow: 0 0 0 3px rgb(198 90 51 / 0.18);
+    }
+
+    .input-error {
+        border-color: var(--color-berry-600);
+    }
+
+    .field-error {
+        margin-top: 0.375rem;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--color-berry-600);
+    }
+
+    /* --- Kartu (radius 24px) --- */
+    .card {
+        background: var(--color-paper);
+        border-radius: 1.5rem;
+        box-shadow: var(--shadow-card);
+    }
+
+    /* --- Lencana status (pill) --- */
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        height: 1.625rem;
+        padding-inline: 0.625rem;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+    }
+
+    .badge-clay {
+        background: var(--color-clay-100);
+        color: var(--color-clay-700);
+    }
+
+    .badge-sage {
+        background: var(--color-sage-200);
+        color: var(--color-sage-700);
+    }
+
+    .badge-cream {
+        background: var(--color-cream-100);
+        color: var(--color-bark-700);
+    }
+
+    .badge-berry {
+        background: var(--color-berry-200);
+        color: var(--color-berry-600);
+    }
+
+    /* --- Stepper jumlah --- */
+    .stepper {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.625rem;
+    }
+
+    .stepper-btn {
+        display: grid;
+        place-items: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.75rem;
+        background: var(--color-cream-100);
+        color: var(--color-bark-800);
+        cursor: pointer;
+        transition:
+            background-color 0.15s var(--ease-warm),
+            transform 0.15s var(--ease-warm);
+    }
+
+    .stepper-btn:hover {
+        background: var(--color-clay-100);
+        color: var(--color-clay-700);
+    }
+
+    .stepper-btn:active {
+        transform: scale(0.92);
+    }
+
+    /* --- Skeleton pemuatan --- */
+    .skeleton {
+        position: relative;
+        overflow: hidden;
+        background: var(--color-cream-100);
+        border-radius: 1rem;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg, transparent, rgb(255 252 246 / 0.7), transparent);
+            animation: skeleton-shimmer 1.5s infinite;
+        }
+    }
+
+    /* --- Animasi masuk halaman --- */
+    @media (prefers-reduced-motion: no-preference) {
+        .fade-up {
+            animation: fade-up 0.4s var(--ease-warm) both;
+        }
+    }
+}
+
+@keyframes skeleton-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
